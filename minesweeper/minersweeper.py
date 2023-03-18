@@ -208,5 +208,5 @@ def play(dim_size=10, num_bombs=10):
         print(board)
 
 
-if __name__ == '__main__':  # good practice :)
+if __name__ == '__main__':
     play()
