@@ -1,23 +1,26 @@
 import random
+import time
 
 
 def computer_guess(x):
     low = 1
     high = x
     feedback = ''
-    while feedback != 'c':
+    while feedback != '=':
         if low != high:
             guess = random.randint(low, high)
         else:
             guess = low
         feedback = input(
-            f'Is {guess} too high (H), too low (L), or correct (C)?? ').lower()
-        if feedback == 'h':
+            f'O numero {guess} é maior (+), menor (-), or igual (=)?? ').lower()
+        if feedback == '+':
             high = guess - 1
-        elif feedback == 'l':
+        elif feedback == '-':
             low = guess + 1
 
-    print(f'Yay! The computer guessed your number, {guess}, correctly!')
+    print(f'Issaaa! O programa adivinhou seu numero, {guess}, corretamente!')
 
+
+time.sleep(5)
 
 computer_guess(10)
