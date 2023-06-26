@@ -1,26 +1,33 @@
+# VERSAO 1.0
+# app para os tecnicos identificarem mais rapido um orçamento como custo atual da peça
+# margem de lucro fixa = 250%
+import time
+
 import requests
 from bs4 import BeautifulSoup
 
-# URL do site
-url = 'https://flp.distribuidoracp.com.br/'
+# receber MARCA, MODELO E DEFEITO do usuario (tecnico)
+print("Seja bem vindo ao BudgetCell!")
+brand_device = input("Informe a marca do aparelho: \n")
+model_device = input("Informe o modelo do aparelho: \n")
+fault_device = input("Informe o defeito do aparelho: \n")
 
-# Parâmetros da pesquisa
-params = {
-    'q': 'tela iphone 11'
-}
+# criar um link separado por %20 para inserir no link de pesquisa
+info = fault_device+" "+brand_device+" "+model_device
+qty_words = info.split()
+words_with_term = "%20".join(qty_words)
+link_to_search = (
+    f"https://flp.distribuidoracp.com.br/index.php?route=product/search&search={words_with_term}")
 
-# Fazendo a requisição GET com os parâmetros
-response = requests.get(url, params=params)
+# acessar o link direto do produto
+page = requests.get(link_to_search)
 
-# Verifica se a requisição foi bem-sucedida
-if response.status_code == 200:
-    # Criando o objeto BeautifulSoup
-    soup = BeautifulSoup(response.text, 'html.parser')
+# Create a BeautifulSoup object
+soup = BeautifulSoup(page.text, 'html.parser')
 
-    # Encontrando o primeiro valor na página
-    primeiro_valor = soup.find("span", class_="price").text.strip()
+# get the repo list
+valores = soup.find(class_='caption')
 
-    # Exibindo o valor para o usuário
-    print('O primeiro valor encontrado é:', primeiro_valor)
-else:
-    print('Erro ao fazer a requisição:', response.status_code)
+valores_list = valores.find_all(class_='price')
+
+print(len(valores_list))
