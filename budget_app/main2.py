@@ -1,9 +1,6 @@
-# VERSAO 1.0
-# app para os tecnicos identificarem mais rapido um orçamento como custo atual da peça
-# margem de lucro fixa = 250%
-import time
+import re
 
-import requests
+import httpx
 from bs4 import BeautifulSoup
 
 # receber MARCA, MODELO E DEFEITO do usuario (tecnico)
@@ -19,15 +16,46 @@ words_with_term = "%20".join(qty_words)
 link_to_search = (
     f"https://flp.distribuidoracp.com.br/index.php?route=product/search&search={words_with_term}")
 
-# acessar o link direto do produto
-page = requests.get(link_to_search)
+# fazer login pra acessar os valores
 
-# Create a BeautifulSoup object
-soup = BeautifulSoup(page.text, 'html.parser')
 
-# get the repo list
-valores = soup.find(class_='caption')
+def Sugador():
+    with httpx.Client(base_url="https://flp.distribuidoracp.com.br") as client:
+        client.post(
+            "/conta/acessar",
+            data={"email": "blackeletronicos@hotmail.com",
+                  "password": "10203040"},
+            headers={
+                "origin": "https://flp.distribuidoracp.com.br",
+                "referer": "https://flp.distribuidoracp.com.br/conta/acessar",
+            },
+        )
 
-valores_list = valores.find_all(class_='price')
+        # buscar as entradas do usuário
+        busca = client.get(
+            "/index.php", params={"route": "product/search", "search": info}
+        )
 
-print(len(valores_list))
+        # usar a classe price e retornar os valores iniciados com R$
+        resultado = BeautifulSoup(busca.text, "html.parser")
+        produtos = resultado.find_all("div", "product-list")
+        for produto in produtos[:3]:  # Retorna os três primeiros produtos
+            # h4 é a div que está o texto do item
+            nome = produto.find("h4").text.strip()
+            # price é a classe de onde ta o preço
+            preco = produto.find("p", "price").text.strip()
+            # trazer somento o texto que tem valor (R$)
+            preco_valor = re.search(r"R\$[\d\.,]+", preco)
+            if preco_valor:
+                preco = preco_valor.group()
+
+            print(f"Nome: {nome[0:30]}")
+            print(f"Preço: {preco[0:30]}")
+            print()
+
+
+Sugador()
+
+# verificar quais das 3 opçoes é a correta
+# calcular o valor final baseado na escolha
+# perguntar se quer fazer outro orçamento
