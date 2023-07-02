@@ -23,8 +23,8 @@ def Sugador():
     with httpx.Client(base_url="https://flp.distribuidoracp.com.br") as client:
         client.post(
             "/conta/acessar",
-            data={"email": "blackeletronicos@hotmail.com",
-                  "password": "10203040"},
+            data={"email": "login",
+                  "password": "senha"},
             headers={
                 "origin": "https://flp.distribuidoracp.com.br",
                 "referer": "https://flp.distribuidoracp.com.br/conta/acessar",
