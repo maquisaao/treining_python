@@ -1,34 +1,36 @@
 import re
-
+import csv
+import numpy as np
+import pandas as pd
+import requests
 import httpx
 from bs4 import BeautifulSoup
+import time
 
-# receber MARCA, MODELO E DEFEITO do usuario (tecnico)
-# pegar dados do login 
 print("Seja bem vindo ao BudgetCell!")
-print("Vamos fazer login na sua conta?\n")
+# fazer login
 login=input("Login:")
-password=input("Senha:")
-print("Agora vamos às informacoes do orcamento:\n")
-model_device = input("Informe o modelo do aparelho: \n")
-fault_device = input("Informe o defeito do aparelho: \n")
+senha=input("Senha:")
+loop= "s"
+while loop == "s":
 
-# criar um link separado por %20 para inserir no link de pesquisa
-info = fault_device+" "+model_device
-qty_words = info.split()
-words_with_term = "%20".join(qty_words)
-link_to_search = (
-    f"https://flp.distribuidoracp.com.br/index.php?route=product/search&search={words_with_term}")
+    # receber MARCA, MODELO E DEFEITO do usuario (tecnico)
+    model_device = input("Informe o modelo do aparelho: \n")
+    fault_device = input("Informe o defeito do aparelho: \n")
 
-# fazer login pra acessar os valores
+    # criar um link separado por %20 para inserir no link de pesquisa
+    info = fault_device+" "+model_device
+    qty_words = info.split()
+    words_with_term = "%20".join(qty_words)
+    link_to_search = (
+        f"https://flp.distribuidoracp.com.br/index.php?route=product/search&search={words_with_term}")
 
-
-def Sugador():
+    # fazer login pra acessar os valores
     with httpx.Client(base_url="https://flp.distribuidoracp.com.br") as client:
         client.post(
             "/conta/acessar",
             data={"email": login,
-                  "password": password},
+                    "password": senhad},
             headers={
                 "origin": "https://flp.distribuidoracp.com.br",
                 "referer": "https://flp.distribuidoracp.com.br/conta/acessar",
@@ -53,13 +55,17 @@ def Sugador():
             if preco_valor:
                 preco = preco_valor.group()
 
-            print(f"Nome: {nome[0:30]}")
+            print(f"Nome: {nome[0:100]}")
             print(f"Preço: {preco[0:30]}")
-            print()
 
+    # verificar quais das 3 opçoes é a correta
+    valor_escolhido=float(input("Qual o valor do item? "))
 
-Sugador()
+    valor_final_cartao=valor_escolhido*2.4
+    valor_final_pix=valor_escolhido*2.2
+    print(f"O valor a ser cobrado é de R$ {valor_final_cartao:.2f} se for no cartao.")
+    print(f"O valor a ser cobrado é de R$ {valor_final_pix:.2f} se for no pix ou dinheiro.")
 
-# verificar quais das 3 opçoes é a correta
-# calcular o valor final baseado na escolha
-# perguntar se quer fazer outro orçamento
+    loop=input("Gostaria de fazer outro orçamento?\n")
+
+time.sleep(10)
