@@ -30,7 +30,7 @@ while loop == "s":
         client.post(
             "/conta/acessar",
             data={"email": login,
-                    "password": senhad},
+                    "password": senha},
             headers={
                 "origin": "https://flp.distribuidoracp.com.br",
                 "referer": "https://flp.distribuidoracp.com.br/conta/acessar",
