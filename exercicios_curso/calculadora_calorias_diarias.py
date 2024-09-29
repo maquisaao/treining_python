@@ -12,37 +12,37 @@ while 'E' in escolha:
 
     # pela atividade fisica, multiplicar pelo valor
     if genero == 'H' and frequencia_fisica == 'L':
-        consumo_diario = ((0.063*float(peso)+2.896)*239)*1.5
+        consumo_diario = ((0.063*float(peso)+2.896)*239)*1.11
         valor = '%s, seu gasto calorico diario é de %.2f.\n' % (
             nome, consumo_diario)
         print(valor)
 
     elif genero == 'H' and frequencia_fisica == 'M':
-        consumo_diario = ((0.063*float(peso)+2.896)*239)*1.5
+        consumo_diario = ((0.063*float(peso)+2.896)*239)*1.25
         valor = '%s, seu gasto calorico diario é de %.2f.\n' % (
             nome, consumo_diario)
         print(valor)
 
     elif genero == 'H' and frequencia_fisica == 'I':
-        consumo_diario = ((0.063*float(peso)+2.896)*239)*1.5
+        consumo_diario = ((0.063*float(peso)+2.896)*239)*1.48
         valor = '%s, seu gasto calorico diario é de %.2f.\n' % (
             nome, consumo_diario)
         print(valor)
 
     elif genero == 'M' and frequencia_fisica == 'L':
-        consumo_diario = ((0.063*float(peso)+2.896)*239)*1.5
+        consumo_diario = ((0.062*float(peso)+2.036)*239)*1.11
         valor = '%s, seu gasto calorico diario é de %.2f.\n' % (
             nome, consumo_diario)
         print(valor)
 
     elif genero == 'M' and frequencia_fisica == 'M':
-        consumo_diario = ((0.063*float(peso)+2.896)*239)*1.5
+        consumo_diario = ((0.062*float(peso)+2.036)*239)*1.25
         valor = '%s, seu gasto calorico diario é de %.2f.\n' % (
             nome, consumo_diario)
         print(valor)
 
     elif genero == 'M' and frequencia_fisica == 'I':
-        consumo_diario = ((0.063*float(peso)+2.896)*239)*1.5
+        consumo_diario = ((0.062*float(peso)+2.036)*239)*1.48
         valor = '%s, seu gasto calorico diario é de %.2f.\n' % (
             nome, consumo_diario)
         print(valor)
