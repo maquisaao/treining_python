@@ -25,6 +25,28 @@ Esse código utiliza a biblioteca `speedtest` para medir a velocidade de conexã
 
 [`Solucionar sudoku`](https://github.com/maquisaao/treining_python/blob/main/test_internet) :
 
+Este projeto implementa um resolvedor de Sudoku utilizando a técnica de backtracking em Python. A ideia é preencher os espaços vazios (representados por -1) em um tabuleiro 9x9 seguindo as regras do Sudoku:
+
+- Nenhum número pode se repetir na mesma linha.
+- Nenhum número pode se repetir na mesma coluna.
+- Nenhum número pode se repetir no mesmo quadrante 3x3.
+
+### Funcionamento do Código
+O algoritmo segue os seguintes passos:
+
+1. Encontrar o próximo espaço vazio: Percorre o tabuleiro para identificar a próxima célula vazia, ou seja, um espaço representado por -1.
+
+2. Fazer uma tentativa (guess): O algoritmo tenta preencher esse espaço com um número entre 1 e 9, verificando se a tentativa é válida de acordo com as regras do Sudoku.
+
+3. Validação: O número é considerado válido se:
+
+- Não estiver repetido na linha.
+- Não estiver repetido na coluna.
+- Não estiver repetido no quadrante 3x3.
+4. Recursão e backtracking: Caso o número seja válido, ele é colocado no tabuleiro e o algoritmo tenta resolver o próximo espaço vazio. Se não for possível resolver com o número atual, o algoritmo volta atrás (backtracking) e tenta outro número.
+
+5. Solução: O algoritmo continua até que todos os espaços vazios sejam preenchidos ou até que seja determinado que o tabuleiro é insoluvel.
+
 [`Pesquisar no Google`](https://github.com/maquisaao/treining_python/blob/main/test_internet) :
 
 [`Campo Minado`](https://github.com/maquisaao/treining_python/blob/main/test_internet) :
