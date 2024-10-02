@@ -19,7 +19,7 @@
  
  
 
-# Treinando Python através de projetos
+# Praticando Python através de projetos
 
 Aqui estão alguns projetos que fiz para desenvolver minha habilidade e entendimento do python e principalmente pra reforçar minha habilidade com a logica de programação. Aqui vou deixar tanto projetos que vejo de exemplo nos materias de cursos como também alguns que achei válidos pra resolver alguns problemas no meu dia a dia.
 
